@@ -1,0 +1,53 @@
+{
+    "elements": [
+        {
+            "id": 1,
+            "fullName": "John Doe",
+            "dob": "1990-05-15",
+            "email": "john.doe@example.com",
+            "mobileNumber": "123-456-7890",
+            "roles": [
+                "Admin",
+                "User"
+            ],
+            "state": "California",
+            "city": "Los Angeles"
+        },
+        {
+            "id": 2,
+            "fullName": "Jane Smith",
+            "dob": "1985-08-22",
+            "email": "jane.smith@example.com",
+            "mobileNumber": "987-654-3210",
+            "roles": [
+                "User"
+            ],
+            "state": "New York",
+            "city": "New York City"
+        },
+        {
+            "id": 3,
+            "fullName": "Bob Johnson",
+            "dob": "1978-12-10",
+            "email": "bob.johnson@example.com",
+            "mobileNumber": "555-123-4567",
+            "roles": [
+                "Admin"
+            ],
+            "state": "Texas",
+            "city": "Houston"
+        },
+        {
+            "id": 4,
+            "fullName": "Alice Williams",
+            "dob": "1995-04-03",
+            "email": "alice.williams@example.com",
+            "mobileNumber": "111-222-3333",
+            "roles": [
+                "User"
+            ],
+            "state": "Florida",
+            "city": "Miami"
+        }
+    ]
+}

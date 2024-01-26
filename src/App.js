@@ -1,24 +1,18 @@
-import logo from './logo.svg';
+// App.js
+import React, { useState } from 'react';
 import './App.css';
+import MyTable from './Task2/MyTable';
+import { elements } from './Task2/Elements';
+import { Routes, Route } from 'react-router-dom';
+import EditForm from './Task2/EditForm';
 
 function App() {
+  const [data, setData] = useState(elements);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path='/' element={<MyTable elements={data} setElements={setData} />} />
+      <Route path='/edit/:id' element={<EditForm elements={data} setElements={setData}></EditForm>} />
+    </Routes>
   );
 }
 
