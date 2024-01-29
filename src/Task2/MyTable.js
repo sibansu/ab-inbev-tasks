@@ -1,6 +1,7 @@
 import { Table, Button } from '@mantine/core';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import {toast} from 'react-hot-toast'
 
 const MyTable = ({ elements, setElements }) => {
     const [localElements, setLocalElements] = useState(elements);
@@ -9,6 +10,7 @@ const MyTable = ({ elements, setElements }) => {
         const updatedElements = localElements.filter((element) => element.id !== id);
         setLocalElements(updatedElements);
         setElements(updatedElements);
+        toast.success("Deleted row successfuly")
     };
 
     const rows = localElements.map((element) => (
@@ -39,22 +41,25 @@ const MyTable = ({ elements, setElements }) => {
     ));
 
     return (
-        <Table className='container' style={{ marginTop: '20px' }}>
-            <Table.Thead>
-                <Table.Tr>
-                    <Table.Th>ID</Table.Th>
-                    <Table.Th>Full Name</Table.Th>
-                    <Table.Th>Date of Birth</Table.Th>
-                    <Table.Th>Email</Table.Th>
-                    <Table.Th>Mobile Number</Table.Th>
-                    <Table.Th>Roles</Table.Th>
-                    <Table.Th>State</Table.Th>
-                    <Table.Th>City</Table.Th>
-                    <Table.Th>Actions</Table.Th>
-                </Table.Tr>
-            </Table.Thead>
-            <Table.Tbody>{rows}</Table.Tbody>
-        </Table>
+        <div>
+            <h2 style={{'textAlign':'center'}}>MANTINE TABLE </h2>
+            <Table className='container' style={{ marginTop: '20px' }}>
+                <Table.Thead>
+                    <Table.Tr>
+                        <Table.Th>ID</Table.Th>
+                        <Table.Th>Full Name</Table.Th>
+                        <Table.Th>Date of Birth</Table.Th>
+                        <Table.Th>Email</Table.Th>
+                        <Table.Th>Mobile Number</Table.Th>
+                        <Table.Th>Roles</Table.Th>
+                        <Table.Th>State</Table.Th>
+                        <Table.Th>City</Table.Th>
+                        <Table.Th>Actions</Table.Th>
+                    </Table.Tr>
+                </Table.Thead>
+                <Table.Tbody>{rows}</Table.Tbody>
+            </Table>
+        </div>
     );
 };
 

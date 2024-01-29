@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-
+import { toast } from 'react-hot-toast'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import statesCitiesData from './statesCitiesData'; // Import the city-state data
+import statesCitiesData from './statesCitiesData'; 
 
 function EditForm({ elements, setElements }) {
     const { id } = useParams();
@@ -50,14 +50,18 @@ function EditForm({ elements, setElements }) {
     };
 
     const handleUpdate = () => {
+        if (!formData.dob || !formData.email || !formData.fullName || !formData.mobileNumber || !formData.roles || !formData.selectedCity || !formData.selectedState) {
+            toast.error("All fields required")
+            return
+        }
         const mobileNumberRegex = /^[0-9]{10}$/;
         if (!mobileNumberRegex.test(formData.mobileNumber)) {
-            alert('Please enter a valid 10-digit mobile number.');
+            toast.error('Please enter a valid 10-digit mobile number.');
             return;
         }
         const emailRegex = /\S+@\S+\.\S+/;
         if (!emailRegex.test(formData.email)) {
-            alert('Please enter a valid email address.');
+            toast.error('Please enter a valid email address.');
             return;
         }
         const updatedElements = elements.map((element) =>
@@ -76,8 +80,29 @@ function EditForm({ elements, setElements }) {
         );
         setElements(updatedElements);
         navigate('/');
+        toast.success('Successfully updated row !')
     };
 
+    // const handleAdd = () => {
+    //     if (!formData.fullName || !formData.email || !formData.mobileNumber) {
+    //         alert('Please fill in all required fields.');
+    //         return;
+    //     }
+
+    //     const newElement = {
+    //         id: elements.length + 1, 
+    //         fullName: formData.fullName,
+    //         dob: formData.dob,
+    //         email: formData.email,
+    //         mobileNumber: formData.mobileNumber,
+    //         roles: formData.roles,
+    //         state: formData.selectedState,
+    //         city: formData.selectedCity,
+    //     };
+
+    //     setElements([...elements, newElement]);
+    //     navigate('/');
+    // };
 
     return (
         <div className="container mt-4">
@@ -100,6 +125,7 @@ function EditForm({ elements, setElements }) {
                     className="form-control"
                     id="dob"
                     value={formData.dob}
+                    max={new Date().toISOString().split('T')[0]}
                     onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
                 />
             </div>
@@ -181,7 +207,7 @@ function EditForm({ elements, setElements }) {
                     ))}
                 </select>
             </div>
-            <button onClick={handleUpdate} className="btn btn-primary">
+            <button onClick={handleUpdate} className="btn btn-success">
                 Update
             </button>
         </div>
