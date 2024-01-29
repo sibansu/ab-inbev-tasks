@@ -8,6 +8,7 @@ const MyTable = ({ elements, setElements }) => {
     const handleDelete = (id) => {
         const updatedElements = localElements.filter((element) => element.id !== id);
         setLocalElements(updatedElements);
+        setElements(updatedElements);
     };
 
     const rows = localElements.map((element) => (

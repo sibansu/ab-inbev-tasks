@@ -50,6 +50,16 @@ function EditForm({ elements, setElements }) {
     };
 
     const handleUpdate = () => {
+        const mobileNumberRegex = /^[0-9]{10}$/;
+        if (!mobileNumberRegex.test(formData.mobileNumber)) {
+            alert('Please enter a valid 10-digit mobile number.');
+            return;
+        }
+        const emailRegex = /\S+@\S+\.\S+/;
+        if (!emailRegex.test(formData.email)) {
+            alert('Please enter a valid email address.');
+            return;
+        }
         const updatedElements = elements.map((element) =>
             element.id === parseInt(id, 10)
                 ? {
@@ -64,12 +74,10 @@ function EditForm({ elements, setElements }) {
                 }
                 : element
         );
-
         setElements(updatedElements);
-
-        // Navigate back to the table view
         navigate('/');
     };
+
 
     return (
         <div className="container mt-4">
