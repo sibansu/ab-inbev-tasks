@@ -7,6 +7,8 @@ import EditForm from './Task2/EditForm';
 import { ToastContainer } from 'react-toastify';
 import { Toaster } from 'react-hot-toast'
 import AddRow from './Task2/AddRow';
+import '@mantine/core/styles.css';
+
 function App() {
   const [data, setData] = useState(elements);
 

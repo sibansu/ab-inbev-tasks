@@ -21,15 +21,13 @@ const MyTable = ({ elements, setElements }) => {
             <Table.Td style={{ padding: '8px' }}>{element.state}</Table.Td>
             <Table.Td style={{ padding: '8px' }}>{element.city}</Table.Td>
             <Table.Td style={{ padding: '8px' }}>
-                <Link className="btn btn-primary" to={`/edit/${element.id}`}>
-                    Edit
+                <Link to={`/edit/${element.id}`}>
+                    <Button variant="filled" color="violet">
+                        Edit
+                    </Button>
                 </Link>
                 <Button
-                    onClick={() => handleDelete(element.id)}
-                    className="btn btn-danger"
-                    variant="outline"
-                    color="red"
-                    style={{ marginLeft: '8px' }}
+                    onClick={() => handleDelete(element.id)} variant="filled" color="red" style={{ marginLeft: '8px' }}
                 >
                     Delete
                 </Button>
@@ -40,11 +38,13 @@ const MyTable = ({ elements, setElements }) => {
     return (
         <div className='d-flex flex-column align-items-center justify-content-around'>
             <h2 style={{ 'textAlign': 'center' }}>MANTINE TABLE </h2>
-            <Link to='/add' className="btn btn-primary" >
-                Add new entry
+            <Link to='/add'>
+                <Button variant="filled" color="pink" size='md'>
+                    Add new entry
+                </Button>
             </Link>
 
-            <Table className='' style={{ marginTop: '20px' }}>
+            <Table striped highlightOnHover style={{ marginTop: '20px' }}>
                 <Table.Thead>
                     <Table.Tr>
                         <Table.Th className='text-center'>ID</Table.Th>
