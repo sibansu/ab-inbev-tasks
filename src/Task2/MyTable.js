@@ -1,7 +1,7 @@
 import { Table, Button } from '@mantine/core';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import {toast} from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 
 const MyTable = ({ elements, setElements }) => {
     const [localElements, setLocalElements] = useState(elements);
@@ -42,7 +42,11 @@ const MyTable = ({ elements, setElements }) => {
 
     return (
         <div>
-            <h2 style={{'textAlign':'center'}}>MANTINE TABLE </h2>
+            <h2 style={{ 'textAlign': 'center' }}>MANTINE TABLE </h2>
+            <Link to='/add' className="btn btn-primary" style={{ display: 'flex', justifyContent: 'center', 'marginLeft':"46%",width: 'fit-content' }}>
+                Add new entry
+            </Link>
+
             <Table className='container' style={{ marginTop: '20px' }}>
                 <Table.Thead>
                     <Table.Tr>

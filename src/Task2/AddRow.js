@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { toast } from 'react-hot-toast'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 import statesCitiesData from './statesCitiesData';
 
-function EditForm({ elements, setElements }) {
-    const { id } = useParams();
+function AddRow({ elements, setElements }) {
     const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         fullName: '',
         dob: '',
@@ -18,22 +17,6 @@ function EditForm({ elements, setElements }) {
         selectedCity: '',
         citiesInSelectedState: [],
     });
-
-    useEffect(() => {
-        const elementToEdit = elements.find((element) => element.id === parseInt(id, 10));
-        if (elementToEdit) {
-            setFormData({
-                fullName: elementToEdit.fullName,
-                dob: elementToEdit.dob,
-                email: elementToEdit.email,
-                mobileNumber: elementToEdit.mobileNumber,
-                roles: elementToEdit.roles,
-                selectedState: elementToEdit.state,
-                selectedCity: elementToEdit.city,
-                citiesInSelectedState: getCitiesByState(elementToEdit.state),
-            });
-        }
-    }, [elements, id]);
 
     const getCitiesByState = (state) => {
         const stateData = statesCitiesData.find((item) => item.state === state);
@@ -49,45 +32,51 @@ function EditForm({ elements, setElements }) {
         });
     };
 
-    const handleUpdate = () => {
-        if (!formData.dob || !formData.email || !formData.fullName || !formData.mobileNumber || !formData.roles || !formData.selectedCity || !formData.selectedState) {
-            toast.error("All fields required")
-            return
+    const handleAdd = () => {
+        if (
+            !formData.dob ||
+            !formData.email ||
+            !formData.fullName ||
+            !formData.mobileNumber ||
+            !formData.roles ||
+            !formData.selectedCity ||
+            !formData.selectedState
+        ) {
+            toast.error('All fields are required');
+            return;
         }
+
         const mobileNumberRegex = /^[0-9]{10}$/;
         if (!mobileNumberRegex.test(formData.mobileNumber)) {
             toast.error('Please enter a valid 10-digit mobile number.');
             return;
         }
+
         const emailRegex = /\S+@\S+\.\S+/;
         if (!emailRegex.test(formData.email)) {
             toast.error('Please enter a valid email address.');
             return;
         }
-        const updatedElements = elements.map((element) =>
-            element.id === parseInt(id, 10)
-                ? {
-                    ...element,
-                    fullName: formData.fullName,
-                    dob: formData.dob,
-                    email: formData.email,
-                    mobileNumber: formData.mobileNumber,
-                    roles: formData.roles,
-                    state: formData.selectedState,
-                    city: formData.selectedCity,
-                }
-                : element
-        );
-        setElements(updatedElements);
+
+        const newElement = {
+            id: elements.length + 1,
+            fullName: formData.fullName,
+            dob: formData.dob,
+            email: formData.email,
+            mobileNumber: formData.mobileNumber,
+            roles: formData.roles,
+            state: formData.selectedState,
+            city: formData.selectedCity,
+        };
+
+        setElements([...elements, newElement]);
         navigate('/');
-        toast.success('Successfully updated row !')
+        toast.success('Successfully added a new row!');
     };
-
-
 
     return (
         <div className="container mt-4">
-            <h2>Edit User</h2>
+            <h2>Add Row</h2>
             <div className="form-group">
                 <label htmlFor="fullname">Fullname</label>
                 <input
@@ -188,11 +177,11 @@ function EditForm({ elements, setElements }) {
                     ))}
                 </select>
             </div>
-            <button onClick={handleUpdate} className="btn btn-success">
-                Update
+            <button onClick={handleAdd} className="btn btn-primary">
+                Add Row
             </button>
         </div>
     );
 }
 
-export default EditForm;
+export default AddRow;
