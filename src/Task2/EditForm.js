@@ -20,9 +20,10 @@ function EditForm({ elements, setElements }) {
     });
 
     useEffect(() => {
-        const elementToEdit = elements.find((element) => element.id === parseInt(id, 10));
+        const elementToEdit = elements.find((element) => element.id === id);
         if (elementToEdit) {
             setFormData({
+                id: elementToEdit.id,
                 fullName: elementToEdit.fullName,
                 dob: elementToEdit.dob,
                 email: elementToEdit.email,
@@ -65,7 +66,7 @@ function EditForm({ elements, setElements }) {
             return;
         }
         const updatedElements = elements.map((element) =>
-            element.id === parseInt(id, 10)
+            element.id === id
                 ? {
                     ...element,
                     fullName: formData.fullName,
@@ -78,6 +79,7 @@ function EditForm({ elements, setElements }) {
                 }
                 : element
         );
+
         setElements(updatedElements);
         navigate('/');
         toast.success('Successfully updated row !')

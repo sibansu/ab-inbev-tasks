@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-
+import { v4 as uuidv4 } from 'uuid';
 import statesCitiesData from './statesCitiesData';
 
 function AddRow({ elements, setElements }) {
@@ -59,7 +59,7 @@ function AddRow({ elements, setElements }) {
         }
 
         const newElement = {
-            id: elements.length + 1,
+            id: uuidv4(),
             fullName: formData.fullName,
             dob: formData.dob,
             email: formData.email,

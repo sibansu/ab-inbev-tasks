@@ -1,6 +1,7 @@
+import { v4 as uuidv4 } from 'uuid';
 export const elements = [
     {
-        id: 1,
+        id: uuidv4(),
         fullName: "John Doe",
         dob: "1990-05-15",
         email: "john.doe@example.com",
@@ -10,7 +11,7 @@ export const elements = [
         city: "Bangalore",
     },
     {
-        id: 2,
+        id: uuidv4(),
         fullName: "Jane Smith",
         dob: "1985-08-22",
         email: "jane.smith@example.com",
@@ -20,7 +21,7 @@ export const elements = [
         city: "Hyderabad",
     },
     {
-        id: 3,
+        id: uuidv4(),
         fullName: "Bob Johnson",
         dob: "1978-12-10",
         email: "bob.johnson@example.com",
@@ -30,7 +31,7 @@ export const elements = [
         city: "Kolkata",
     },
     {
-        id: 4,
+        id: uuidv4(),
         fullName: "Alice Williams",
         dob: "1995-04-03",
         email: "alice.williams@example.com",
@@ -40,7 +41,7 @@ export const elements = [
         city: "Mysuru",
     },
     {
-        id: 5,
+        id: uuidv4(),
         fullName: "David Smith",
         dob: "1982-11-25",
         email: "david.smith@example.com",
@@ -50,7 +51,7 @@ export const elements = [
         city: "Mumbai",
     },
     {
-        id: 6,
+        id: uuidv4(),
         fullName: "Emily Johnson",
         dob: "1993-07-18",
         email: "emily.johnson@example.com",
@@ -60,7 +61,7 @@ export const elements = [
         city: "Chennai",
     },
     {
-        id: 7,
+        id: uuidv4(),
         fullName: "Michael Brown",
         dob: "1989-03-08",
         email: "michael.brown@example.com",
@@ -70,7 +71,7 @@ export const elements = [
         city: "New Delhi",
     },
     {
-        id: 8,
+        id: uuidv4(),
         fullName: "Olivia Davis",
         dob: "1998-09-12",
         email: "olivia.davis@example.com",
@@ -80,7 +81,7 @@ export const elements = [
         city: "Ahmedabad",
     },
     {
-        id: 9,
+        id: uuidv4(),
         fullName: "William Miller",
         dob: "1975-06-30",
         email: "william.miller@example.com",
@@ -90,7 +91,7 @@ export const elements = [
         city: "Jaipur",
     },
     {
-        id: 10,
+        id: uuidv4(),
         fullName: "Sophia Wilson",
         dob: "1987-04-17",
         email: "sophia.wilson@example.com",
