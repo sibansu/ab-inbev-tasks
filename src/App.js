@@ -10,8 +10,20 @@ import AddRow from './Task2/AddRow';
 import '@mantine/core/styles.css';
 
 function App() {
+  
+  const [elements, setElements] = useState([]);
   const [data, setData] = useState(elements);
 
+  // useEffect(() => {
+  //     Axios.get('http://127.0.0.1:5000/get_users')
+  //         .then(response => {
+  //             setElements(response.data);
+  //         })
+  //         .catch(error => {
+  //             console.error('Error fetching data:', error);
+  //             toast.error('Error fetching data');
+  //         });
+  // }, []);
   return (
     <div>
       <Toaster />

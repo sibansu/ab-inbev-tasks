@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { v4 as uuidv4 } from 'uuid';
 import statesCitiesData from './statesCitiesData';
-
+import axios from 'axios'
 function AddRow({ elements, setElements }) {
     const navigate = useNavigate();
 
@@ -12,7 +12,7 @@ function AddRow({ elements, setElements }) {
         dob: '',
         email: '',
         mobileNumber: '',
-        roles: [],
+        roles: '',
         selectedState: '',
         selectedCity: '',
         citiesInSelectedState: [],
@@ -31,8 +31,25 @@ function AddRow({ elements, setElements }) {
             selectedCity: '',
         });
     };
+    const toggleRole = (role) => {
+        const roles = [...formData.roles];
 
-    const handleAdd = () => {
+        if (roles.includes(role)) {
+            // Role is already selected, so remove it
+            const index = roles.indexOf(role);
+            roles.splice(index, 1);
+        } else {
+            // Role is not selected, so add it
+            roles.push(role);
+        }
+
+        setFormData({
+            ...formData,
+            roles: roles.join(','),
+        });
+    };
+
+    const handleAdd = async () => {
         if (
             !formData.dob ||
             !formData.email ||
@@ -57,21 +74,32 @@ function AddRow({ elements, setElements }) {
             toast.error('Please enter a valid email address.');
             return;
         }
+        console.log(formData);
+        try {
+            const response = await axios.post('http://127.0.0.1:5000/add_user', {
+                fullName: formData.fullName,
+                dob: formData.dob,
+                email: formData.email,
+                mobileNumber: formData.mobileNumber,
+                roles: formData.roles,
+                state: formData.selectedState,
+                city: formData.selectedCity,
+            });
 
-        const newElement = {
-            id: uuidv4(),
-            fullName: formData.fullName,
-            dob: formData.dob,
-            email: formData.email,
-            mobileNumber: formData.mobileNumber,
-            roles: formData.roles,
-            state: formData.selectedState,
-            city: formData.selectedCity,
-        };
-
-        setElements([...elements, newElement]);
-        navigate('/');
-        toast.success('Successfully added a new row!');
+            if (response.status === 201) {
+                // const newElement = response.data;
+                // setElements([...elements, newElement]);  // Update the state with the new element
+                console.log(response.data);
+                navigate('/');
+                toast.success('Successfully added a new row!');
+            } else {
+                console.log(response.data);
+                toast.error(response.data.error || 'Failed to add a new row.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            toast.error('An error occurred while adding a new row.');
+        }
     };
 
     return (
@@ -124,25 +152,24 @@ function AddRow({ elements, setElements }) {
             </div>
 
             <div className="form-group">
-                <label htmlFor="roles">Roles</label>
+                <label>Roles</label>
                 <select
-                    className="form-control"
-                    id="roles"
                     multiple
-                    value={formData.roles}
-                    onChange={(e) =>
-                        setFormData({
-                            ...formData,
-                            roles: Array.from(e.target.selectedOptions, (option) => option.value),
-                        })
-                    }
+                    className="form-control"
+                    value={formData.roles.split(',')}
+                    onChange={(e) => {
+                        const selectedRoles = Array.from(e.target.selectedOptions, option => option.value);
+                        setFormData({ ...formData, roles: selectedRoles.join(',') });
+                    }}
                 >
-                    <option value="developer">developer</option>
+                    <option value="developer">Developer</option>
                     <option value="HR">HR</option>
-                    <option value="manager">manager</option>
-                    <option value="designer">designer</option>
+                    <option value="manager">Manager</option>
+                    <option value="designer">Designer</option>
                 </select>
             </div>
+
+
 
             <div className="form-group">
                 <label htmlFor="state">State</label>

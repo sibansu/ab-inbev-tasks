@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast'
+import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import statesCitiesData from './statesCitiesData';
 
-function EditForm({ elements, setElements }) {
+function EditForm() {
     const { id } = useParams();
     const navigate = useNavigate();
+    const [elements, setElements] = useState([]); // State to manage elements
+
     const [formData, setFormData] = useState({
         fullName: '',
         dob: '',
@@ -18,6 +21,20 @@ function EditForm({ elements, setElements }) {
         selectedCity: '',
         citiesInSelectedState: [],
     });
+
+    useEffect(() => {
+        // Fetch data or set elements state from an API call
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/get_users');
+                setElements(response.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     useEffect(() => {
         const elementToEdit = elements.find((element) => element.id === id);
@@ -50,42 +67,68 @@ function EditForm({ elements, setElements }) {
         });
     };
 
-    const handleUpdate = () => {
+    const handleUpdate = async () => {
         if (!formData.dob || !formData.email || !formData.fullName || !formData.mobileNumber || !formData.roles || !formData.selectedCity || !formData.selectedState) {
             toast.error("All fields required")
-            return
+            return;
         }
+
         const mobileNumberRegex = /^[0-9]{10}$/;
         if (!mobileNumberRegex.test(formData.mobileNumber)) {
             toast.error('Please enter a valid 10-digit mobile number.');
             return;
         }
+
+        const nameRegex = /^[^0-9]+$/;
+        if (!nameRegex.test(formData.fullName)) {
+            toast.error('Name should not contain numbers.');
+            return;
+        }
+
         const emailRegex = /\S+@\S+\.\S+/;
         if (!emailRegex.test(formData.email)) {
             toast.error('Please enter a valid email address.');
             return;
         }
-        const updatedElements = elements.map((element) =>
-            element.id === id
-                ? {
-                    ...element,
-                    fullName: formData.fullName,
-                    dob: formData.dob,
-                    email: formData.email,
-                    mobileNumber: formData.mobileNumber,
-                    roles: formData.roles,
-                    state: formData.selectedState,
-                    city: formData.selectedCity,
-                }
-                : element
-        );
 
-        setElements(updatedElements);
-        navigate('/');
-        toast.success('Successfully updated row !')
+        try {
+            const response = await axios.put(`http://localhost:5000/update_user/${id}`, {
+                fullName: formData.fullName,
+                dob: formData.dob,
+                email: formData.email,
+                mobileNumber: formData.mobileNumber,
+                roles: formData.roles,
+                state: formData.selectedState,
+                city: formData.selectedCity,
+            });
+
+            if (response.status === 200) {
+                const updatedElements = elements.map((element) =>
+                    element.id === id
+                        ? {
+                            ...element,
+                            fullName: formData.fullName,
+                            dob: formData.dob,
+                            email: formData.email,
+                            mobileNumber: formData.mobileNumber,
+                            roles: formData.roles,
+                            state: formData.selectedState,
+                            city: formData.selectedCity,
+                        }
+                        : element
+                );
+
+                setElements(updatedElements);
+                navigate('/');
+                toast.success('Successfully updated row!');
+            } else {
+                toast.error('Failed to update row.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            toast.error('An error occurred while updating the row.');
+        }
     };
-
-
 
     return (
         <div className="container mt-4">
@@ -150,10 +193,10 @@ function EditForm({ elements, setElements }) {
                         })
                     }
                 >
-                    <option value="developer">developer</option>
+                    <option value="developer">Developer</option>
                     <option value="HR">HR</option>
-                    <option value="manager">manager</option>
-                    <option value="designer">designer</option>
+                    <option value="manager">Manager</option>
+                    <option value="designer">Designer</option>
                 </select>
             </div>
 
