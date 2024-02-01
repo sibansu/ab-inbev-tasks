@@ -45,7 +45,7 @@ function EditForm() {
                 dob: elementToEdit.dob,
                 email: elementToEdit.email,
                 mobileNumber: elementToEdit.mobileNumber,
-                roles: elementToEdit.roles,
+                roles: elementToEdit.roles.split(',').map(role => role.trim()),
                 selectedState: elementToEdit.state,
                 selectedCity: elementToEdit.city,
                 citiesInSelectedState: getCitiesByState(elementToEdit.state),
@@ -72,7 +72,10 @@ function EditForm() {
             toast.error("All fields required")
             return;
         }
-
+        if (!formData.roles || formData.roles.length === 0) {
+            toast.error("Please select at least one role");
+            return;
+        }
         const mobileNumberRegex = /^[0-9]{10}$/;
         if (!mobileNumberRegex.test(formData.mobileNumber)) {
             toast.error('Please enter a valid 10-digit mobile number.');
