@@ -9,7 +9,7 @@ import statesCitiesData from './statesCitiesData';
 function EditForm() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [elements, setElements] = useState([]); // State to manage elements
+    const [elements, setElements] = useState([]); 
 
     const [formData, setFormData] = useState({
         fullName: '',
@@ -23,7 +23,7 @@ function EditForm() {
     });
 
     useEffect(() => {
-        // Fetch data or set elements state from an API call
+        
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://localhost:5000/get_users');

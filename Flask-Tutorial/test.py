@@ -6,10 +6,9 @@ from sqlalchemy import func
 app = Flask(__name__)
 CORS(app) 
 
-# adding configuration for using a sqlite database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:sibansu@127.0.0.1:3306/abi_practice'
 
-# Creating an SQLAlchemy instance
+
 db = SQLAlchemy(app)
 
 class User_data(db.Model):
@@ -26,7 +25,6 @@ class User_data(db.Model):
 def get_users():
     users = User_data.query.all()
     
-    # Convert the query result to an array of dictionaries
     users_array = [
         {
             'id': user.id,
