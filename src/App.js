@@ -11,16 +11,13 @@ import EditFormNew from './Task2/EditFormNew';
 
 function App() {
 
-  const [elements, setElements] = useState([]);
-  const [data, setData] = useState(elements);
-
   return (
     <div>
       <Toaster />
       <Routes>
-        <Route path='/' element={<MyTable elements={data} setElements={setData} />} />
-        <Route path='/add' element={<AddRow elements={data} setElements={setData} />} />
-        <Route path='/edit/:id' element={<EditForm elements={data} setElements={setData}></EditForm>} />
+        <Route path='/' element={<MyTable />} />
+        <Route path='/add' element={<AddRow />} />
+        <Route path='/edit/:id' element={<EditForm></EditForm>} />
       </Routes>
       <ToastContainer />
     </div>
