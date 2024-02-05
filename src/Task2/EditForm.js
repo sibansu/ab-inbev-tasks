@@ -23,7 +23,6 @@ function EditForm() {
     });
 
     useEffect(() => {
-        
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://localhost:5000/get_users');
@@ -137,7 +136,7 @@ function EditForm() {
         <div className="container mt-4">
             <h2>Edit User</h2>
             <div className="form-group">
-                <label htmlFor="fullname">Fullname</label>
+                <label htmlFor="fullname">Full Name</label>
                 <input
                     type="text"
                     className="form-control"
