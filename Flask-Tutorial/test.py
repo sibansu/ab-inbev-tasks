@@ -3,13 +3,24 @@ from flask_sqlalchemy import SQLAlchemy
 import uuid
 from flask_cors import CORS  
 from sqlalchemy import func
+from dotenv import load_dotenv
+import os
 app = Flask(__name__)
 CORS(app) 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:sibansu@127.0.0.1:3306/abi_practice'
+load_dotenv()
+
+db_user = os.environ['DB_USER']
+db_password = os.environ['DB_PASSWORD']
+db_name = os.environ['DB_NAME']
+
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://{db_user}:{db_password}@127.0.0.1:3306/{db_name}".format(
+    db_user=db_user, db_password=db_password, db_name = db_name
+)
 
 
 db = SQLAlchemy(app)
+
 
 class User_data(db.Model):
     id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))

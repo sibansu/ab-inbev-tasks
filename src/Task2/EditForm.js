@@ -9,7 +9,7 @@ import statesCitiesData from './statesCitiesData';
 function EditForm() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [elements, setElements] = useState([]); 
+    const [elements, setElements] = useState([]);
 
     const [formData, setFormData] = useState({
         fullName: '',
@@ -122,7 +122,7 @@ function EditForm() {
 
                 setElements(updatedElements);
                 navigate('/');
-                toast.success('Successfully updated row!');
+                toast.success(`Successfully updated row for ${formData.fullName}`);
             } else {
                 toast.error('Failed to update row.');
             }

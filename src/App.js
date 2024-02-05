@@ -10,7 +10,7 @@ import '@mantine/core/styles.css';
 import EditFormNew from './Task2/EditFormNew';
 
 function App() {
-  
+
   const [elements, setElements] = useState([]);
   const [data, setData] = useState(elements);
 

@@ -4,7 +4,7 @@ import { toast } from 'react-hot-toast';
 import { v4 as uuidv4 } from 'uuid';
 import statesCitiesData from './statesCitiesData';
 import axios from 'axios'
-function AddRow({ elements, setElements }) {
+function AddRow() {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -31,24 +31,7 @@ function AddRow({ elements, setElements }) {
             selectedCity: '',
         });
     };
-    const toggleRole = (role) => {
-        const roles = [...formData.roles];
-
-        if (roles.includes(role)) {
-            // Role is already selected, so remove it
-            const index = roles.indexOf(role);
-            roles.splice(index, 1);
-        } else {
-            // Role is not selected, so add it
-            roles.push(role);
-        }
-
-        setFormData({
-            ...formData,
-            roles: roles.join(','),
-        });
-    };
-
+    
     const handleAdd = async () => {
         if (
             !formData.dob ||

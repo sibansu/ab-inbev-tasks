@@ -17,13 +17,13 @@ const MyTable = () => {
                 toast.error('Error fetching data');
             });
     }, []);
-    const handleDelete = (id) => {
+    const handleDelete = (id, fullName) => {
         axios.delete(`http://127.0.0.1:5000/delete_user/${id}`)
             .then(response => {
                 if (response.status === 200) {
                     const updatedElements = elements.filter((element) => element.id !== id);
                     setElements(updatedElements);
-                    toast.success("Deleted row successfully");
+                    toast.success(`Deleted row successfully: ${fullName}`);
                 } else {
                     toast.error(response.data.error || 'Failed to delete the row.');
                 }
@@ -71,6 +71,7 @@ const MyTable = () => {
             <div style={{ marginBottom: '20px' }}>
                 <Input
                     type="text"
+                    radius='lg'
                     placeholder="Search by name"
                     value={searchTerm}
                     onChange={handleSearch}
