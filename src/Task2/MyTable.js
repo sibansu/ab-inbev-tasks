@@ -10,7 +10,7 @@ const MyTable = () => {
         axios.get('http://127.0.0.1:5000/get_users')
             .then(response => {
                 setElements(response.data);
-                console.log(response.data)
+                console.log("Table data",response.data)
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
@@ -23,7 +23,7 @@ const MyTable = () => {
                 if (response.status === 200) {
                     const updatedElements = elements.filter((element) => element.id !== id);
                     setElements(updatedElements);
-                    toast.success(`Deleted row successfully: ${fullName}`);
+                    toast.success(`Deleted row successfully`);
                 } else {
                     toast.error(response.data.error || 'Failed to delete the row.');
                 }

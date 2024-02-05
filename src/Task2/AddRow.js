@@ -31,7 +31,7 @@ function AddRow() {
             selectedCity: '',
         });
     };
-    
+
     const handleAdd = async () => {
         if (
             !formData.dob ||
@@ -51,7 +51,11 @@ function AddRow() {
             toast.error('Please enter a valid 10-digit mobile number.');
             return;
         }
-
+        const fullNameRegex = /^[a-zA-Z\s]+$/;
+        if (!fullNameRegex.test(formData.fullName)) {
+            toast.error('Full name should only contain alphabetic characters and white spaces.');
+            return;
+        }
         const emailRegex = /\S+@\S+\.\S+/;
         if (!emailRegex.test(formData.email)) {
             toast.error('Please enter a valid email address.');
@@ -95,6 +99,7 @@ function AddRow() {
                     className="form-control"
                     id="fullname"
                     value={formData.fullName}
+                    maxLength='30'
                     onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                 />
             </div>
@@ -117,6 +122,7 @@ function AddRow() {
                     type="email"
                     className="form-control"
                     id="email"
+                    maxLength='30'
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 />

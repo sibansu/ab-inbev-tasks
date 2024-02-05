@@ -18,9 +18,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://{db_user}:{db_password}@127.0.0
     db_user=db_user, db_password=db_password, db_name = db_name
 )
 
-
 db = SQLAlchemy(app)
-
 
 class User_data(db.Model):
     id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))

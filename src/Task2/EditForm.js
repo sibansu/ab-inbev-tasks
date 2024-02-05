@@ -81,9 +81,9 @@ function EditForm() {
             return;
         }
 
-        const nameRegex = /^[^0-9]+$/;
-        if (!nameRegex.test(formData.fullName)) {
-            toast.error('Name should not contain numbers.');
+        const fullNameRegex = /^[a-zA-Z\s]+$/;
+        if (!fullNameRegex.test(formData.fullName)) {
+            toast.error('Full name should only contain alphabetic characters and white spaces.');
             return;
         }
 
@@ -105,6 +105,7 @@ function EditForm() {
             });
 
             if (response.status === 200) {
+                console.log("Edited data", formData);
                 const updatedElements = elements.map((element) =>
                     element.id === id
                         ? {
@@ -139,6 +140,7 @@ function EditForm() {
                 <label htmlFor="fullname">Full Name</label>
                 <input
                     type="text"
+                    maxLength='30'
                     className="form-control"
                     id="fullname"
                     value={formData.fullName}
@@ -164,6 +166,7 @@ function EditForm() {
                     type="email"
                     className="form-control"
                     id="email"
+                    maxLength='30'
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 />
