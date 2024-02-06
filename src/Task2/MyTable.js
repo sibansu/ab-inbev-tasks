@@ -10,7 +10,7 @@ const MyTable = () => {
         axios.get('http://127.0.0.1:5000/get_users')
             .then(response => {
                 setElements(response.data);
-                console.log("Table data",response.data)
+                console.log("Table data", response.data)
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
@@ -67,21 +67,23 @@ const MyTable = () => {
 
     return (
         <div className='d-flex flex-column align-items-center justify-content-around'>
-            <h2 style={{ 'textAlign': 'center' }}>MANTINE TABLE </h2>
-            <div style={{ marginBottom: '20px' }}>
-                <Input
-                    type="text"
-                    radius='lg'
-                    placeholder="Search by name"
-                    value={searchTerm}
-                    onChange={handleSearch}
-                />
+            <div className='container mt-3' style={{ display: 'flex', justifyContent: 'space-between', width: '100vw' }}>
+                <div style={{ marginBottom: '20px' }}>
+                    <Input
+                        type="text"
+                        radius='lg'
+                        placeholder="Search by name"
+                        value={searchTerm}
+                        onChange={handleSearch}
+                    />
+                </div>
+                <h2 style={{ 'textAlign': 'center' }}>MANTINE TABLE </h2>
+                <Link to='/add'>
+                    <Button variant="filled" color="pink" size='md'>
+                        Add a row
+                    </Button>
+                </Link>
             </div>
-            <Link to='/add'>
-                <Button variant="filled" color="pink" size='md'>
-                    Add a row
-                </Button>
-            </Link>
             {
                 elements.length ? (
                     <Table striped highlightOnHover style={{ marginTop: '20px' }}>

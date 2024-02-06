@@ -15,7 +15,7 @@ db_password = os.environ['DB_PASSWORD']
 db_name = os.environ['DB_NAME']
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://{db_user}:{db_password}@127.0.0.1:3306/{db_name}".format(
-    db_user=db_user, db_password=db_password, db_name = db_name
+    db_user=db_user, db_password=db_password, db_name=db_name
 )
 
 db = SQLAlchemy(app)
